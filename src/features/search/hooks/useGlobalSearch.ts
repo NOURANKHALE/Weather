@@ -1,0 +1,107 @@
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { setCity, clearSearch, setError, searchByCity, searchByCoords } from '@/features/search/store/SearchSlice';
+import { useLocale } from 'next-intl';
+import { useCallback, useEffect } from 'react';
+import { debounce } from '@/lib/utils/api';
+import { storageHelpers } from '@/lib/utils/storage';
+import { UI_CONFIG } from '@/lib/constants';
+import { UseGlobalSearchReturn } from '@/features/search/types/UseGlobalSearchReturnInterface';
+import { setUserWeatherAndForecast } from '@/features/map/store/mapSlice';
+
+export const useGlobalSearch = (): UseGlobalSearchReturn => {
+  const dispatch = useAppDispatch();
+  const locale = useLocale();
+  const searchState = useAppSelector((state) => state.search);
+
+  // Debounced search function
+  const debouncedSearch = useCallback(
+    debounce((city: string) => {
+      if (city.trim()) {
+        dispatch(searchByCity({ city: city.trim(), locale }));
+        // Save to search history
+        storageHelpers.addToSearchHistory(city.trim());
+      }
+    }, UI_CONFIG.debounceDelay),
+    [dispatch, locale]
+  );
+
+  const searchCity = useCallback((city: string) => {
+    if (city.trim()) {
+      dispatch(searchByCity({ city: city.trim(), locale }));
+      // Save to search history
+      storageHelpers.addToSearchHistory(city.trim());
+    }
+  }, [dispatch, locale]);
+
+  const searchByLocation = useCallback((lat: number, lon: number) => {
+    dispatch(searchByCoords({ lat, lon, locale }));
+    // Save location to storage
+    storageHelpers.setLastLocation({ lat, lon, name: 'Current Location' });
+  }, [dispatch, locale]);
+
+  const clearSearchResults = useCallback(() => {
+    dispatch(clearSearch());
+  }, [dispatch]);
+
+  const getCurrentLocation = useCallback(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          searchByLocation(latitude, longitude);
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
+          dispatch(setError('Unable to get your location'));
+        }
+      );
+    } else {
+      dispatch(setError('Geolocation is not supported by this browser'));
+    }
+  }, [dispatch, locale, searchByLocation]);
+
+  const setCityValue = useCallback((value: string) => {
+    dispatch(setCity(value));
+  }, [dispatch]);
+
+  // Get search history
+  const getSearchHistory = useCallback(() => {
+    return storageHelpers.getSearchHistory();
+  }, []);
+
+  // Clear search history
+  const clearSearchHistory = useCallback(() => {
+    storageHelpers.clearSearchHistory();
+  }, []);
+
+  // Load last location on mount
+  useEffect(() => {
+    const lastLocation = storageHelpers.getLastLocation();
+    if (lastLocation && !searchState.weatherData && !searchState.loading) {
+      const { lat, lon } = lastLocation;
+      searchByLocation(lat, lon);
+    }
+  }, [searchByLocation, searchState.weatherData, searchState.loading]);
+
+  // Sync search results to map slice
+  useEffect(() => {
+    if (searchState.weatherData && searchState.forecastData) {
+      dispatch(setUserWeatherAndForecast({
+        userWeather: searchState.weatherData,
+        forecast: searchState.forecastData,
+      }));
+    }
+  }, [searchState.weatherData, searchState.forecastData, dispatch]);
+
+  return {
+    ...searchState,
+    setCity: setCityValue,
+    searchCity,
+    debouncedSearch,
+    searchByLocation,
+    clearSearchResults,
+    getCurrentLocation,
+    getSearchHistory,
+    clearSearchHistory,
+  };
+}; 
