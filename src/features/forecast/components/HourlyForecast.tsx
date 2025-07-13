@@ -1,24 +1,23 @@
 'use client';
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from 'framer-motion';
-import { FiDroplet, FiWind} from "react-icons/fi";
+import { FiDroplet, FiWind } from "react-icons/fi";
 import { HourlyForecastProps } from "@/features/forecast/types/HourlyForecastPropsInterface";
 import { getWeatherIcon } from '@/features/weather/constants/weatherIcons';
-import { useTranslations, useFormatter } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
-export default function HourlyForecast({ forecastData, forecast}: HourlyForecastProps) {
+export default function HourlyForecast({ forecastData, forecast }: HourlyForecastProps) {
   const now = new Date();
   const currentHour = now.getHours();
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-  // Find temperature range for the day
   const temps = forecastData.map(item => item.temp);
   const minTemp = Math.min(...temps);
   const maxTemp = Math.max(...temps);
   const tempRange = maxTemp - minTemp;
 
   const t = useTranslations('Weather');
+
   return (
     <motion.section 
       initial={{ opacity: 0, y: 20 }}
@@ -29,15 +28,8 @@ export default function HourlyForecast({ forecastData, forecast}: HourlyForecast
       <div className="Hourly_Forecast flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <motion.div
-            animate={{ 
-              scale: [1, 1.2, 1],
-              rotate: [0, 5, -5, 0]
-            }}
-            transition={{ 
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="w-3 h-3 rounded-full bg-gradient-to-r from-teal-300 via-yellow-200 to-green-200 shadow-md"
           />
           <h2 className="text-xl font-semibold">
@@ -57,6 +49,7 @@ export default function HourlyForecast({ forecastData, forecast}: HourlyForecast
                 const isCurrent = hour === currentHour;
                 const isDaytime = hour >= 6 && hour < 18;
                 const tempPosition = ((item.temp - minTemp) / tempRange) * 100;
+
                 return (
                   <motion.div
                     key={idx}
@@ -69,8 +62,6 @@ export default function HourlyForecast({ forecastData, forecast}: HourlyForecast
                         ? 'bg-gradient-to-br from-teal-100/5 via-yellow-300/20 to-white/30 border border-teal-300/40' 
                         : 'hover:bg-white/30 hover:backdrop-blur-sm border border-transparent'
                     }`}
-                    onMouseEnter={() => setHoveredIdx(idx)}
-                    onMouseLeave={() => setHoveredIdx(null)}
                   >
                     <div className="flex flex-col items-center gap-1">
                       <p className={`text-sm font-medium ${

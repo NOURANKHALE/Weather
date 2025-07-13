@@ -11,7 +11,7 @@ const initialState: MapState = {
   error: null,
   userWeather: null,
   lastSearchedCity: null,
-  activeTab: 'analytics',
+  activeTab: 'map',
   locale: 'en',
   showLocationPermissionDialog: false,
 };

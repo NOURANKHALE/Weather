@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import { useEffect ,useMemo} from 'react';
 import dynamic from "next/dynamic";
 import { useLocale } from 'next-intl';
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
@@ -27,17 +27,20 @@ export default function WeatherDashboard() {
   } = useLocationWeather({ searchCity: weatherData?.name ?? null });
 
   // Derived data for map analytics
-  const analyticsForecast = forecastData || [];
-  const forecastDataForMap = React.useMemo(() => analyticsForecast.slice(0, 8).filter(Boolean).map(item => ({
-    time: item?.dt_txt?.split(' ')[1]?.slice(0, 5) || '',
-    temp: item?.main?.temp ?? 0,
-    humidity: item?.main?.humidity ?? 0,
-    wind: item?.wind?.speed ?? 0,
-    condition: item?.weather?.[0]?.main || 'Other',
-  })), [analyticsForecast]);
+  const analyticsForecast = useMemo(() => forecastData || [], [forecastData]);
+
+  const forecastDataForMap = useMemo(() =>
+    analyticsForecast.slice(0, 8).filter(Boolean).map(item => ({
+      time: item?.dt_txt?.split(' ')[1]?.slice(0, 5) || '',
+      temp: item?.main?.temp ?? 0,
+      humidity: item?.main?.humidity ?? 0,
+      wind: item?.wind?.speed ?? 0,
+      condition: item?.weather?.[0]?.main || 'Other',
+    }))
+  , [analyticsForecast]);
 
   // Automatically request geolocation on mount if no data exists and permission is granted
-  React.useEffect(() => {
+  useEffect(() => {
     if (!weatherData && typeof window !== 'undefined') {
       if (localStorage.getItem(LOCATION_PERMISSION_STORAGE_KEY)) {
         if (navigator.geolocation) {
@@ -66,9 +69,9 @@ export default function WeatherDashboard() {
         setActiveTab={(tab) => dispatch(setActiveTab(tab))}
         lastSearchedCity={weatherData}
         userWeather={weatherData}
-        userLocation={weatherData?.coord ? { lat: weatherData.coord.lat, lon: weatherData.coord.lon } : userLocation}
+        userLocation={weatherData?.coord ? { lat: weatherData.coord.lat, lon: weatherData.coord.lon } : userLocation as { lat: number; lon: number }}
         direction={direction}
-        WeatherMapClient={WeatherMapClient}
+        WeatherMapClient={WeatherMapClient as unknown as React.ComponentType<Record<string, unknown>>}
         geoError={geoError}
         alertRef={alertRef}
         forecastData={forecastDataForMap}

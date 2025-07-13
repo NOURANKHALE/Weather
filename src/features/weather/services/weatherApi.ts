@@ -38,8 +38,8 @@ export class WeatherApiService {
     
     // Check cache first
     const cached = apiCache.get(cacheKey);
-    if (cached) {
-      return cached;
+    if (cached && typeof cached === 'object' && 'timezone' in cached) {
+      return cached as WeatherData;
     }
 
     try {
@@ -67,8 +67,8 @@ export class WeatherApiService {
     
     // Check cache first
     const cached = apiCache.get(cacheKey);
-    if (cached) {
-      return cached;
+    if (cached && typeof cached === 'object' && 'timezone' in cached) {
+      return cached as WeatherData;
     }
 
     try {
@@ -95,8 +95,8 @@ export class WeatherApiService {
     
     // Check cache first
     const cached = apiCache.get(cacheKey);
-    if (cached) {
-      return cached;
+    if (cached && typeof cached === 'object' && 'list' in cached) {
+      return cached as { list: ForecastItem[] };
     }
 
     try {

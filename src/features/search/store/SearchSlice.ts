@@ -15,55 +15,64 @@ const initialState: SearchState = {
 // Async thunk for searching by city
 export const searchByCity = createAsyncThunk(
   'search/searchByCity',
-  async ({ city, locale }: { city: string; locale: string }, { rejectWithValue }) => {
+  async (
+    { city, locale }: { city: string; locale: string },
+    { rejectWithValue }
+  ) => {
     try {
       const result = await WeatherApiService.fetchWeatherAndForecastByCity(city.trim(), locale);
-      
+
       return {
         weather: result.weather,
         forecast: result.forecast,
         location: {
           lat: result.weather.coord.lat,
           lon: result.weather.coord.lon,
-          name: result.weather.name
-        }
+          name: result.weather.name,
+        },
       };
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'City not found');
+    } catch (error: unknown) {
+      const err = error as Error;
+      return rejectWithValue(err.message || 'City not found');
     }
   }
 );
 
-// Async thunk for getting weather by coordinates (geolocation)
+// Async thunk for searching by coordinates
 export const searchByCoords = createAsyncThunk(
   'search/searchByCoords',
-  async ({ lat, lon, locale }: { lat: number; lon: number; locale: string }, { rejectWithValue }) => {
+  async (
+    { lat, lon, locale }: { lat: number; lon: number; locale: string },
+    { rejectWithValue }
+  ) => {
     try {
       const result = await WeatherApiService.fetchWeatherAndForecast(lat, lon, locale);
-      
+
       return {
         weather: result.weather,
         forecast: result.forecast,
         location: {
           lat,
           lon,
-          name: result.weather.name
-        }
+          name: result.weather.name,
+        },
       };
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch weather data');
+    } catch (error: unknown) {
+      const err = error as Error;
+      return rejectWithValue(err.message || 'Failed to fetch weather data');
     }
   }
 );
 
+// Slice definition
 const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
     setCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
+
       if (!action.payload) {
-        // Clear search results when city is cleared
         state.weatherData = null;
         state.forecastData = null;
         state.error = null;
@@ -87,7 +96,6 @@ const searchSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Handle city search
       .addCase(searchByCity.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -106,7 +114,6 @@ const searchSlice = createSlice({
         state.error = action.payload as string;
         state.isGeolocation = false;
       })
-      // Handle coordinate search
       .addCase(searchByCoords.pending, (state) => {
         state.loading = true;
         state.error = null;

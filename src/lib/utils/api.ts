@@ -19,7 +19,7 @@ export const apiRequest = async <T>(
 ): Promise<T> => {
   const makeRequest = async (): Promise<T> => {
     const response = await fetch(url, options);
-    
+
     if (!response.ok) {
       const errorMessage = await response.text().catch(() => 'Unknown error');
       throw new APIError(
@@ -28,17 +28,15 @@ export const apiRequest = async <T>(
       );
     }
 
-    return response.json();
+    return response.json() as Promise<T>;
   };
 
-  // Simple retry logic
   for (let attempt = 1; attempt <= retryAttempts; attempt++) {
     try {
       return await makeRequest();
     } catch (error) {
       if (attempt === retryAttempts) throw error;
-      // Wait before retrying (exponential backoff)
-      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt)); // backoff
     }
   }
 
@@ -70,12 +68,12 @@ export const handleAPIError = (error: unknown): string => {
 };
 
 // Debounce utility for search inputs
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends (...args: unknown[]) => void>(
   func: T,
   delay: number
 ): ((...args: Parameters<T>) => void) => {
   let timeoutId: number;
-  
+
   return (...args: Parameters<T>) => {
     clearTimeout(timeoutId);
     timeoutId = window.setTimeout(() => func(...args), delay);
@@ -83,17 +81,17 @@ export const debounce = <T extends (...args: any[]) => any>(
 };
 
 // Cache utility for API responses
-export class APICache {
-  private cache = new Map<string, { data: any; timestamp: number }>();
+export class APICache<T = unknown> {
+  private cache = new Map<string, { data: T; timestamp: number }>();
 
-  set(key: string, data: any, ttl: number = API_CONFIG.cacheTime): void {
+  set(key: string, data: T, ttl: number = API_CONFIG.cacheTime): void {
     this.cache.set(key, {
       data,
       timestamp: Date.now() + ttl,
     });
   }
 
-  get(key: string): any | null {
+  get(key: string): T | null {
     const item = this.cache.get(key);
     if (!item) return null;
 
@@ -115,4 +113,4 @@ export class APICache {
 }
 
 // Global API cache instance
-export const apiCache = new APICache(); 
+export const apiCache = new APICache();

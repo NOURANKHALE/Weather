@@ -26,18 +26,32 @@ export const useForecast = () => {
 
   // Group forecast by day for weekly forecast
   const dailyForecast = useMemo(() => {
-    return (forecastData || []).reduce((acc: Record<string, ForecastItem[]>, item) => {
+    console.log('useForecast - forecastData:', forecastData);
+    
+    if (!forecastData || forecastData.length === 0) {
+      console.log('useForecast - No forecast data available');
+      return {};
+    }
+    
+    const grouped = (forecastData || []).reduce((acc: Record<string, ForecastItem[]>, item) => {
       const date = item.dt_txt?.split(' ')[0];
-      if (!date) return acc;
+      if (!date) {
+        console.log('useForecast - Item without date:', item);
+        return acc;
+      }
       if (!acc[date]) acc[date] = [];
       acc[date].push(item);
       return acc;
     }, {});
+    
+    console.log('useForecast - Grouped daily forecast:', grouped);
+    return grouped;
   }, [forecastData]);
 
   // Get current location on mount if no data exists
   useEffect(() => {
     if (!weatherData && !loading && !city) {
+      console.log('useForecast - Getting current location');
       getCurrentLocation();
     }
   }, [weatherData, loading, city, getCurrentLocation]);

@@ -22,7 +22,7 @@ export default function ForecastPage() {
     <div className="Forecast_Page space-y-8 p-6" dir={direction}>
       <ForecastHeader />
       {weatherData && <WeatherStats weatherData={weatherData} />}
-      <DailyForecast dailyForecast={dailyForecast} />
+      <DailyForecast dailyForecast={dailyForecast || {}} />
     </div>
   );
 }

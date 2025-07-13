@@ -42,7 +42,7 @@ const NoResultsPage: React.FC<NoResultsProps> = ({
           
           {searchQuery && (
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              "{searchQuery}"
+              {searchQuery}
             </p>
           )}
 
