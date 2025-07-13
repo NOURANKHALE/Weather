@@ -135,24 +135,7 @@ export default function WeatherDisplay({ section }: { section?: 'weather' | 'hou
         </motion.div>
       )}
 
-      {/* No data state */}
-      {!weatherData && !loading && !error && (
-        <motion.div
-          className="text-center py-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <div className="max-w-md mx-auto space-y-4">
-            
-            <div>
-              <p className="text-gray-600 dark:text-gray-400">
-                {t('searchOrAllowLocation')}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      )}
+      
     </motion.div>
   );
 }
