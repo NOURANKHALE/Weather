@@ -15,7 +15,7 @@ export default function WeatherStatCard({
       tabIndex={0}
     >
       {/* Shine effect */}
-      <span className="pointer-events-none absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-teal-100/30 via-yellow-100/20 to-transparent opacity-0 group-hover:opacity-60 animate-shine rounded-3xl" />
+      <span className="pointer-events-none absolute -top-1/2  w-[200%] h-[200%] bg-gradient-to-tr from-teal-100/30 via-yellow-100/20 to-transparent opacity-0 group-hover:opacity-60 animate-shine rounded-3xl" />
       <motion.div
         className="w-16 h-16 flex items-center justify-center rounded-full  border-2 border-white/60 mb-3 mt-1"
         animate={{ y: [0, -8, 0] }}

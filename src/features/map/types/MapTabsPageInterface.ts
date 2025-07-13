@@ -9,10 +9,17 @@ export interface MapTabsPageProps {
   userWeather: WeatherData | null;
   userLocation: { lat: number; lon: number } | null;
   direction: 'ltr' | 'rtl';
-  WeatherMapClient: React.ComponentType<any>;
+  WeatherMapClient: React.ComponentType<Record<string, unknown>>;
   geoError: string | null;
   alertRef: React.Ref<HTMLDivElement>;
-  forecastData: Array<{ time: string; temp: number; humidity: number; wind: number; windDir?: number; condition: string }>;
+  forecastData: Array<{
+    time: string;
+    temp: number;
+    humidity: number;
+    wind: number;
+    windDir?: number;
+    condition: string;
+  }>;
   analyticsForecast: ForecastItem[];
   locale: string;
-} 
+}

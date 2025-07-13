@@ -12,7 +12,7 @@ export default function HomePage() {
   let { locale } = useParams();
   locale = Array.isArray(locale) ? locale[0] : locale;
   const [isMobile, setIsMobile] = useState(false)
-  const { error, clearSearchResults } = useGlobalSearch();
+  const { error } = useGlobalSearch();
   const t = useTranslations('Home');
 
   useEffect(() => {

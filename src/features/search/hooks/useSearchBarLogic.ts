@@ -10,7 +10,6 @@ export const useSearchBarLogic = (showHistory = true) => {
     isGeolocation,
     setCity,
     searchCity,
-    debouncedSearch,
     getCurrentLocation,
     getSearchHistory,
     clearSearchHistory
@@ -52,11 +51,13 @@ export const useSearchBarLogic = (showHistory = true) => {
     }
   }, [localCity, searchCity]);
 
-  const handleDebouncedSearch = useCallback((value: string) => {
-    if (value.trim()) {
-      debouncedSearch(value);
-    }
-  }, [debouncedSearch]);
+  const handleHistoryItemClick = useCallback((historyItem: string) => {
+    setLocalCity(historyItem);
+    setCity(historyItem);
+    searchCity(historyItem);
+    setShowHistoryDropdown(false);
+    setSelectedHistoryIndex(-1);
+  }, [setCity, searchCity]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -68,7 +69,7 @@ export const useSearchBarLogic = (showHistory = true) => {
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelectedHistoryIndex(prev => 
+      setSelectedHistoryIndex(prev =>
         prev < searchHistory.length - 1 ? prev + 1 : prev
       );
     } else if (e.key === 'ArrowUp') {
@@ -79,7 +80,7 @@ export const useSearchBarLogic = (showHistory = true) => {
       setSelectedHistoryIndex(-1);
       inputRef.current?.blur();
     }
-  }, [selectedHistoryIndex, searchHistory, handleSearch]);
+  }, [selectedHistoryIndex, searchHistory, handleSearch, handleHistoryItemClick]);
 
   const handleLocationClick = useCallback(() => {
     getCurrentLocation();
@@ -87,20 +88,12 @@ export const useSearchBarLogic = (showHistory = true) => {
     setSelectedHistoryIndex(-1);
   }, [getCurrentLocation]);
 
-  const handleHistoryItemClick = useCallback((historyItem: string) => {
-    setLocalCity(historyItem);
-    setCity(historyItem);
-    searchCity(historyItem);
-    setShowHistoryDropdown(false);
-    setSelectedHistoryIndex(-1);
-  }, [setCity, searchCity]);
-
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setLocalCity(value);
     setCity(value);
     setSelectedHistoryIndex(-1);
-    
+
     setShowHistoryDropdown(value.length > 0 && searchHistory.length > 0);
   }, [setCity, searchHistory.length]);
 
@@ -113,7 +106,6 @@ export const useSearchBarLogic = (showHistory = true) => {
 
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
-    // Delay hiding dropdown to allow clicking on history items
     setTimeout(() => {
       setShowHistoryDropdown(false);
       setSelectedHistoryIndex(-1);
@@ -134,7 +126,7 @@ export const useSearchBarLogic = (showHistory = true) => {
     selectedHistoryIndex,
     inputRef,
     historyRef,
-    
+
     // Actions
     handleClear,
     handleSearch,
@@ -145,11 +137,11 @@ export const useSearchBarLogic = (showHistory = true) => {
     handleInputFocus,
     handleInputBlur,
     handleClearHistory,
-    
+
     // Global state
     loading,
     error,
     weatherData,
     isGeolocation
   };
-}; 
+};

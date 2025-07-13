@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useLocale } from 'next-intl';
-import { FiMapPin, FiX, FiSearch, FiClock } from 'react-icons/fi';
+import { FiMapPin } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchBarLogic } from '@/features/search/hooks';
 import { cn } from '@/lib/utils';

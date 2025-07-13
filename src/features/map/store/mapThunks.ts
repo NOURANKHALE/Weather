@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { WeatherApiService } from '@/features/weather/services/weatherApi';
+
 export type MapTab = 'analytics' | 'map';
 export type Locale = 'en' | 'ar'; 
+
 export const fetchCityWeather = createAsyncThunk(
   'map/fetchCityWeather',
   async ({ city, locale }: { city: string; locale: Locale }, { rejectWithValue }) => {
@@ -13,7 +15,7 @@ export const fetchCityWeather = createAsyncThunk(
         center: { lat: result.weather.coord.lat, lon: result.weather.coord.lon },
         userLocation: { lat: result.weather.coord.lat, lon: result.weather.coord.lon },
       };
-    } catch (err) {
+    } catch {
       return rejectWithValue('cityNotFound');
     }
   }
@@ -33,8 +35,8 @@ export const fetchUserLocationWeather = createAsyncThunk(
         center: { lat: latitude, lon: longitude },
         userLocation: { lat: latitude, lon: longitude },
       };
-    } catch (err) {
+    } catch {
       return rejectWithValue('fetchWeatherError');
     }
   }
-); 
+);

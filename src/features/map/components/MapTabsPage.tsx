@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { FiAlertCircle, FiMapPin, FiSun, FiThermometer } from "react-icons/fi";
+import { FiAlertCircle, FiSun, FiThermometer } from "react-icons/fi";
 import { ResponsiveContainer, XAxis, YAxis, CartesianGrid, LineChart, Line, BarChart, Bar, Tooltip as RechartsTooltip, Legend } from 'recharts';
 import { useTranslations } from "next-intl";
 import { motion } from 'framer-motion';
@@ -111,7 +111,7 @@ export default function MapTabsPage({
           items={["temperature", "humidity", "wind"]}
           storageKey="map_analytics_card_order"
           getItemId={id => id}
-          renderItem={(id, isDragging) => {
+          renderItem={(id) => {
             if (id === "temperature") {
               return (
                 <Card className="bg-white/80 dark:bg-gray-800/70 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">

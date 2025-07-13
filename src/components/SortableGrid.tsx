@@ -19,10 +19,12 @@ function SortableGrid<T>({ items, renderItem, storageKey, getItemId, className =
   // Initialize order from storage or items
   useEffect(() => {
     const stored = storage.get<string[]>(storageKey, []);
-    if (stored && stored.length > 0) {
+    const itemIds = items.map(getItemId);
+    // Only use stored order if it matches the current items
+    if (stored && stored.length === itemIds.length && stored.every(id => itemIds.includes(id))) {
       setOrder(stored);
     } else {
-      setOrder(items.map(getItemId));
+      setOrder(itemIds);
     }
   }, [items, storageKey, getItemId]);
 
@@ -85,8 +87,8 @@ function SortableGrid<T>({ items, renderItem, storageKey, getItemId, className =
       onDragCancel={() => setActiveId(null)}
     >
       <SortableContext items={order} strategy={rectSortingStrategy}>
-        <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ${className}`}>
-          {orderedItems.map(item => (
+      <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ${className}`}>
+      {orderedItems.map(item => (
             <SortableItem key={getItemId(item)} item={item} />
           ))}
         </div>

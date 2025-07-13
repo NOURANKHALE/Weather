@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { Home, MapPin, BarChart3, Cloud, Sparkles } from 'lucide-react'
+import { Home, MapPin, BarChart3 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useParams, usePathname } from 'next/navigation'
 import { CustomSidebarTrigger } from './CustomSidebarTrigger'

@@ -1,6 +1,19 @@
 import { FiThermometer, FiDroplet, FiWind, FiSun } from 'react-icons/fi';
 
-export default function useWeatherStatCards(weatherData: any, t: any) {
+interface WeatherData {
+  main: {
+    temp_max: number;
+    temp_min: number;
+    humidity: number;
+  };
+  wind: {
+    speed: number;
+  };
+}
+
+type TranslationFunction = (key: string) => string;
+
+export default function useWeatherStatCards(weatherData: WeatherData, t: TranslationFunction) {
   return [
     {
       id: 'highLow',
@@ -34,9 +47,9 @@ export default function useWeatherStatCards(weatherData: any, t: any) {
       icon: FiSun,
       iconClass: "text-yellow-500 w-6 h-6 md:w-8 md:h-8",
       title: t('uvIndex'),
-      value: '5',
+      value: '5', 
       description: t('uvLevel'),
       accent: 'border-yellow-200',
     },
   ];
-} 
+}
