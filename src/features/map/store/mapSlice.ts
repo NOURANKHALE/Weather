@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MapState } from '@/features/map/types/MapSliceInterface';
 import { fetchCityWeather, fetchUserLocationWeather } from './mapThunks';
-export type MapTab = 'analytics' | 'map';
+export type MapTab = 'analytics' | 'map' | 'overview';
 export type Locale = 'en' | 'ar'; 
 const initialState: MapState = {
   center: { lat: 30.0444, lon: 31.2357 },
@@ -11,7 +11,7 @@ const initialState: MapState = {
   error: null,
   userWeather: null,
   lastSearchedCity: null,
-  activeTab: 'map',
+  activeTab: 'overview',
   locale: 'en',
   showLocationPermissionDialog: false,
 };

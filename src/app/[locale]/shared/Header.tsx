@@ -47,14 +47,12 @@ export default function Header() {
               </SheetTrigger>
 
               {/* Sidebar for mobile */}
-              <SheetContent side="left" className="w-[280px] sm:w-[300px] bg-white/95 dark:bg-gray-950/95">
+              <SheetContent side="left" className="w-[280px] sm:w-[300px] bg-white/95 dark:bg-gray-900/80 ">
                 <SheetHeader>
                   <SheetTitle>{t('title')}</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col h-full pt-6">
-                    <div>
-                      {/* The h1 below is now redundant, so it can be removed or replaced with a visually hidden element if needed */}
-                  </div>
+                    
 
                   {/* Language Switcher */}
                   <div className="px-2 mb-4">
@@ -110,9 +108,10 @@ export default function Header() {
             >
               <div className="relative">
                   <div className="hidden sm:block">
-                    <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                      {t('title')}
+                  <h1 className="text-2xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-700 via-yellow-400 to-blue-600 bg-clip-text text-transparent drop-shadow-sm tracking-tight animate-pulse">
+                     {t('title')}
                     </h1>
+
                   </div>
                 </div>
             </motion.div>
