@@ -1,7 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+"use client";
+import { useState, useEffect, useRef, Dispatch, SetStateAction, RefObject } from "react";
 import { UserLocation } from "@/features/weather/types/UserLocationInterface";
 import { LocationWeatherProps } from "@/features/map/types/LocationWeatherInterface";
-export function useLocationWeather({ searchCity }: LocationWeatherProps) {
+
+/**
+ * Hook to manage user geolocation state and error, with localStorage integration.
+ * @param searchCity - The city being searched for (if any)
+ * @returns Geolocation error, setter, alert ref, and user location
+ */
+export function useLocationWeather({ searchCity }: LocationWeatherProps): {
+  geoError: string | null;
+  setGeoError: Dispatch<SetStateAction<string | null>>;
+  alertRef: RefObject<HTMLDivElement | null>;
+  userLocation: UserLocation | null;
+} {
   const [geoError, setGeoError] = useState<string | null>(null);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const alertRef = useRef<HTMLDivElement>(null);

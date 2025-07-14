@@ -1,5 +1,6 @@
 import { WeatherData } from '@/features/weather/types/WeatherDataInterfaces';
 import { ForecastItem } from '@/features/forecast/types/ForecastDataInterface';
+import { Coord } from './WeatherMapInterface';
 
 export interface FetchCityWeatherPayload {
   city: string;
@@ -8,8 +9,8 @@ export interface FetchCityWeatherPayload {
 export interface FetchCityWeatherResult {
   cityData: WeatherData;
   forecast: ForecastItem[];
-  center: { lat: number; lon: number };
-  userLocation: { lat: number; lon: number };
+  center: Coord;
+  userLocation: Coord;
 }
 
 export interface FetchUserLocationWeatherPayload {
@@ -20,6 +21,6 @@ export interface FetchUserLocationWeatherPayload {
 export interface FetchUserLocationWeatherResult {
   userWeather: WeatherData;
   forecast: ForecastItem[];
-  center: { lat: number; lon: number };
-  userLocation: { lat: number; lon: number };
+  center: Coord;
+  userLocation: Coord;
 } 

@@ -12,7 +12,6 @@ const initialState: SearchState = {
   lastSearchedLocation: null,
 };
 
-// Async thunk for searching by city
 export const searchByCity = createAsyncThunk(
   'search/searchByCity',
   async (
@@ -21,7 +20,6 @@ export const searchByCity = createAsyncThunk(
   ) => {
     try {
       const result = await WeatherApiService.fetchWeatherAndForecastByCity(city.trim(), locale);
-
       return {
         weather: result.weather,
         forecast: result.forecast,
@@ -38,7 +36,6 @@ export const searchByCity = createAsyncThunk(
   }
 );
 
-// Async thunk for searching by coordinates
 export const searchByCoords = createAsyncThunk(
   'search/searchByCoords',
   async (
@@ -47,7 +44,6 @@ export const searchByCoords = createAsyncThunk(
   ) => {
     try {
       const result = await WeatherApiService.fetchWeatherAndForecast(lat, lon, locale);
-
       return {
         weather: result.weather,
         forecast: result.forecast,
@@ -64,14 +60,12 @@ export const searchByCoords = createAsyncThunk(
   }
 );
 
-// Slice definition
 const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
     setCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
-
       if (!action.payload) {
         state.weatherData = null;
         state.forecastData = null;

@@ -3,7 +3,8 @@
     "title": "الطقس",
     "language": "اللغة",
     "Map" :"الخريطة",
-    "Forecast":"التنبؤ"
+    "Forecast":"التنبؤ",
+    "Home" :"الرئيسية"
   },
   "Sidebar": {
     "Home": "الرئيسية",

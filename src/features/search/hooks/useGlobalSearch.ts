@@ -14,12 +14,18 @@ import { UI_CONFIG } from '@/lib/constants';
 import { UseGlobalSearchReturn } from '@/features/search/types/UseGlobalSearchReturnInterface';
 import { setUserWeatherAndForecast } from '@/features/map/store/mapSlice';
 
+/**
+ * Hook to centralize search logic, debounced search, geolocation, and search history.
+ * @returns All search state, actions, and helpers.
+ */
 export const useGlobalSearch = (): UseGlobalSearchReturn => {
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const searchState = useAppSelector((state) => state.search);
 
-  // ✅ Debounced search with useMemo
+  /**
+   * Debounced search function for city names.
+   */
   const debouncedSearch = useMemo(() => {
     return debounce((...args: unknown[]) => {
       const city = args[0] as string;
@@ -29,10 +35,10 @@ export const useGlobalSearch = (): UseGlobalSearchReturn => {
       }
     }, UI_CONFIG.debounceDelay);
   }, [dispatch, locale]);
-  
-  
 
-  // ✅ Regular search
+  /**
+   * Regular search for city names.
+   */
   const searchCity = useCallback(
     (city: string) => {
       if (city.trim()) {
@@ -43,7 +49,9 @@ export const useGlobalSearch = (): UseGlobalSearchReturn => {
     [dispatch, locale]
   );
 
-  // ✅ Search by coordinates (fixed missing dependency)
+  /**
+   * Search by coordinates.
+   */
   const searchByLocation = useCallback(
     (lat: number, lon: number) => {
       dispatch(searchByCoords({ lat, lon, locale }));
@@ -52,10 +60,16 @@ export const useGlobalSearch = (): UseGlobalSearchReturn => {
     [dispatch, locale]
   );
 
+  /**
+   * Clear search results.
+   */
   const clearSearchResults = useCallback(() => {
     dispatch(clearSearch());
   }, [dispatch]);
 
+  /**
+   * Get current location using browser geolocation.
+   */
   const getCurrentLocation = useCallback(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -64,7 +78,11 @@ export const useGlobalSearch = (): UseGlobalSearchReturn => {
           searchByLocation(latitude, longitude);
         },
         (error) => {
-          console.error('Geolocation error:', error);
+          console.error('Geolocation error:', {
+            code: error.code,
+            message: error.message,
+            error
+          });
           dispatch(setError('Unable to get your location'));
         }
       );
@@ -73,6 +91,9 @@ export const useGlobalSearch = (): UseGlobalSearchReturn => {
     }
   }, [dispatch, searchByLocation]);
 
+  /**
+   * Set the city value in the search state.
+   */
   const setCityValue = useCallback(
     (value: string) => {
       dispatch(setCity(value));
@@ -80,15 +101,21 @@ export const useGlobalSearch = (): UseGlobalSearchReturn => {
     [dispatch]
   );
 
-  const getSearchHistory = useCallback(() => {
+  /**
+   * Get search history from storage.
+   */
+  const getSearchHistory = useCallback((): string[] => {
     return storageHelpers.getSearchHistory();
   }, []);
 
+  /**
+   * Clear search history from storage.
+   */
   const clearSearchHistory = useCallback(() => {
     storageHelpers.clearSearchHistory();
   }, []);
 
-  // ✅ Load last location on mount
+  // Load last location on mount
   useEffect(() => {
     const lastLocation = storageHelpers.getLastLocation();
     if (lastLocation && !searchState.weatherData && !searchState.loading) {
@@ -97,7 +124,7 @@ export const useGlobalSearch = (): UseGlobalSearchReturn => {
     }
   }, [searchByLocation, searchState.weatherData, searchState.loading]);
 
-  // ✅ Sync search results to map slice
+  // Sync search results to map slice
   useEffect(() => {
     if (searchState.weatherData && searchState.forecastData) {
       dispatch(

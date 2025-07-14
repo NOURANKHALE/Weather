@@ -3,26 +3,17 @@ import { useParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import WeatherDisplay from '@/features/weather/components/WeatherDisplay'
 import { FiSun, FiClock } from 'react-icons/fi'
-import { useEffect, useState } from 'react'
 import { useGlobalSearch } from '@/features/search/hooks'
 import ErrorPage from '@/components/ErrorPage'
 import { useTranslations } from 'next-intl'
+import { useIsMobile } from '@/hooks/usemobile'
 
 export default function HomePage() {
   let { locale } = useParams();
   locale = Array.isArray(locale) ? locale[0] : locale;
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useIsMobile();
   const { error } = useGlobalSearch();
   const t = useTranslations('Home');
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   if (error) {
     return (
