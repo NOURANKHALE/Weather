@@ -1,12 +1,15 @@
+'use client';
+
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 interface MobileSidebarProps {
   locale: string;
   t: (key: string) => string;
-  router: any;
+  router: ReturnType<typeof useRouter>;
   setMobileMenuOpen: (open: boolean) => void;
   mobileMenuOpen: boolean;
   changeLocale: (newLocale: string) => void;
@@ -22,18 +25,25 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
 }) => {
   return (
     <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-      <SheetTrigger asChild className="lg:hidden" >
+      <SheetTrigger asChild className="lg:hidden">
         <Button
           variant="ghost"
           size="icon"
           className="h-9 w-9 text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
         >
-          <Menu className="h-5 w-5 "  />
+          <Menu className="h-5 w-5" />
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side={locale === 'ar' ? 'right' : 'left'} className="w-[280px] sm:w-[300px] bg-white/95 dark:bg-gray-900 ">
-        <div className="flex flex-col h-full  pt-6" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+
+      <SheetContent
+        side={locale === 'ar' ? 'right' : 'left'}
+        className="w-[280px] sm:w-[300px] bg-white/95 dark:bg-gray-900"
+      >
+        <div
+          className="flex flex-col h-full pt-6"
+          dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        >
           {/* Language Switcher */}
           <div className="px-2 mb-4 pt-6">
             <h3 className="text-sm font-medium text-muted-foreground mb-2">
@@ -56,25 +66,35 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
               </Button>
             </div>
           </div>
-          {/* Mobile navigation buttons for Map and Forecast */}
-          <div className=" mb-4 ">
+
+          {/* Navigation */}
+          <div className="mb-4">
             <Button
               variant="outline"
-              onClick={() => { router.replace(`/${locale}/`); setMobileMenuOpen(false); }}
+              onClick={() => {
+                router.replace(`/${locale}/`);
+                setMobileMenuOpen(false);
+              }}
               className="w-full justify-start gap-2 mb-2"
             >
               {t('Home')}
             </Button>
             <Button
               variant="outline"
-              onClick={() => { router.replace(`/${locale}/map`); setMobileMenuOpen(false); }}
+              onClick={() => {
+                router.replace(`/${locale}/map`);
+                setMobileMenuOpen(false);
+              }}
               className="w-full justify-start gap-2 mb-2"
             >
               {t('Map')}
             </Button>
             <Button
               variant="outline"
-              onClick={() => { router.replace(`/${locale}/forecast`); setMobileMenuOpen(false); }}
+              onClick={() => {
+                router.replace(`/${locale}/forecast`);
+                setMobileMenuOpen(false);
+              }}
               className="w-full justify-start gap-2"
             >
               {t('Forecast')}
@@ -86,4 +106,4 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
   );
 };
 
-export default MobileSidebar; 
+export default MobileSidebar;

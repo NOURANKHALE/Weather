@@ -1,4 +1,4 @@
-import { WeatherStatCardProps } from '@/features/forecast/types/WeatherStatCardPropsInterface';
+import type { WeatherStatCard as WeatherStatCardProps } from '@/features/weather/types/WeatherStatCardPropsInterface';
 import { Card } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 export default function WeatherStatCard({ 

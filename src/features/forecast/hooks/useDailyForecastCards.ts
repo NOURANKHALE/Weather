@@ -1,6 +1,5 @@
 import { getWeatherIcon } from '@/features/weather/constants/weatherIcons';
 import { ForecastItem, DailyForecastCard } from '@/features/forecast/types/ForecastDataInterface';
-import { JSX } from 'react';
 
 /**
  * Hook to map grouped daily forecast data to card objects for display.
@@ -34,7 +33,7 @@ export function useDailyForecastCards(
         avgTemp,
         icon: getWeatherIcon(iconCode, 48),
         locale,
-      } satisfies DailyForecastCard;
+      } as DailyForecastCard;
     })
     .filter((card): card is DailyForecastCard => card !== undefined);
 

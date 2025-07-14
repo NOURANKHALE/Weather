@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect, useCallback, RefObject } from 'react';
+import { useState, useRef, useEffect, useCallback} from 'react';
 import { UseSearchBarLogic } from '@/features/search/types/UseSearchBarLogicInterface';
 import { useGlobalSearch } from './useGlobalSearch';
 
