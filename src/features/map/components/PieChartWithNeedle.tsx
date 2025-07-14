@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState, useRef } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { usePieChartData } from '@/features/map/hooks/usePieChartData';

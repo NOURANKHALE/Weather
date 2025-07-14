@@ -29,8 +29,8 @@ export default function WeatherCard({ weather, formattedTime, className = '' }: 
               id="weather-location"
               className="text-lg font-semibold text-foreground mb-1 flex items-center gap-2 drop-shadow-sm"
             >
-              <FiMapPin className="text-teal-500" />
-              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-teal-400 to-yellow-300 animate-pulse shadow-md" aria-hidden="true"></span>
+              <FiMapPin className="text-primary" />
+              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-yellow-300 animate-pulse shadow-md" aria-hidden="true"></span>
               {weather.name}
             </h3>
             <p className="text-4xl sm:text-5xl font-extrabold text-foreground drop-shadow-lg">
@@ -56,23 +56,23 @@ export default function WeatherCard({ weather, formattedTime, className = '' }: 
                 WEATHER_ICON_MAP['01d']
               )}
             </motion.div>
-            <p className="text-xs text-teal-600 mt-1 text-right capitalize">
+            <p className="text-xs text-primary mt-1 text-right capitalize">
               {getConditionLabel(weather.weather[0].main)} 
             </p>
           </div>
         </div>
 
         {/* Time updated */}
-        <div className="text-xs text-teal-700/80 mb-6 font-medium">
+        <div className="text-xs text-primary/80 mb-6 font-medium">
           {formattedTime}
         </div>
 
         {/* Weather Details Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" role="group" aria-label="Weather details">
           {/* Humidity */}
-          <div className="bg-white/80 dark:bg-gray-800/70 rounded-xl p-3 border border-gray-200 dark:border-gray-800 hover:border-teal-400/40 transition-colors backdrop-blur-md shadow-sm">
+          <div className="bg-background/80 dark:bg-background/70 rounded-xl p-3 border border-border hover:border-primary/40 transition-colors backdrop-blur-md shadow-sm">
             <div className="flex items-center gap-2 mb-1">
-              <FiDroplet size={16} className="text-teal-500 drop-shadow" />
+              <FiDroplet size={16} className="text-primary drop-shadow" />
               <span className="text-xs sm:text-sm font-medium text-muted-foreground">{t('humidity')}</span>
             </div>
             <p className="text-xl sm:text-2xl font-semibold text-foreground">
@@ -81,7 +81,7 @@ export default function WeatherCard({ weather, formattedTime, className = '' }: 
           </div>
 
           {/* Wind */}
-          <div className="bg-white/80 dark:bg-gray-800/70 rounded-xl p-3 border border-gray-200 dark:border-gray-800 hover:border-green-400/40 transition-colors backdrop-blur-md shadow-sm">
+          <div className="bg-background/80 dark:bg-background/70 rounded-xl p-3 border border-border hover:border-green-400/40 transition-colors backdrop-blur-md shadow-sm">
             <div className="flex items-center gap-2 mb-1">
               <FiWind size={16} className="text-green-500 drop-shadow" />
               <span className="text-xs sm:text-sm font-medium text-muted-foreground">{t('wind')}</span>
@@ -92,7 +92,7 @@ export default function WeatherCard({ weather, formattedTime, className = '' }: 
           </div>
 
           {/* Pressure */}
-          <div className="bg-white/80 dark:bg-gray-800/70 rounded-xl p-3 border border-gray-200 dark:border-gray-800 hover:border-yellow-400/40 transition-colors backdrop-blur-md shadow-sm">
+          <div className="bg-background/80 dark:bg-background/70 rounded-xl p-3 border border-border hover:border-yellow-400/40 transition-colors backdrop-blur-md shadow-sm">
             <div className="flex items-center gap-2 mb-1">
               <FiCompass size={16} className="text-yellow-500 drop-shadow" />
               <span className="text-xs sm:text-sm font-medium text-muted-foreground">{t('pressure')}</span>
@@ -108,14 +108,14 @@ export default function WeatherCard({ weather, formattedTime, className = '' }: 
           <div className="flex items-center gap-2 text-xs text-yellow-600 drop-shadow">
             <FiSunrise />
             <span>{t('sunrise')}</span>
-            <span className="font-semibold text-gray-700 dark:text-gray-200">
+            <span className="font-semibold text-foreground">
               {new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </span>
           </div>
           <div className="flex items-center gap-2 text-xs text-green-600 drop-shadow">
             <FiSunset />
             <span>{t('sunset')}</span>
-            <span className="font-semibold text-gray-700 dark:text-gray-200">
+            <span className="font-semibold text-foreground">
               {new Date(weather.sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </span>
           </div>

@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+"use client";
+import { useState, useRef, useEffect, useCallback, RefObject } from 'react';
+import { UseSearchBarLogic } from '@/features/search/types/UseSearchBarLogicInterface';
 import { useGlobalSearch } from './useGlobalSearch';
 
-export const useSearchBarLogic = (showHistory = true) => {
+export const useSearchBarLogic = (showHistory = true): UseSearchBarLogic => {
   const {
     city,
     loading,
@@ -15,11 +17,11 @@ export const useSearchBarLogic = (showHistory = true) => {
     clearSearchHistory
   } = useGlobalSearch();
 
-  const [localCity, setLocalCity] = useState(city);
-  const [isFocused, setIsFocused] = useState(false);
-  const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
+  const [localCity, setLocalCity] = useState<string>(city);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [showHistoryDropdown, setShowHistoryDropdown] = useState<boolean>(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(-1);
+  const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number>(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const historyRef = useRef<HTMLDivElement>(null);
 

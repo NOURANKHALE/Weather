@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
+import { PieChartDatum } from '@/features/map/types/PieChartDatumInterface';
 
 const validDirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'] as const;
-const colorMap = {
+const colorMap: Record<typeof validDirs[number], string> = {
   N: '#4f46e5',
   NE: '#7c3aed',
   E: '#a78bfa',
@@ -12,14 +13,33 @@ const colorMap = {
   NW: '#4338ca'
 };
 
-function getWindDirection(degrees?: number): string {
+/**
+ * Get wind direction as a string from degrees.
+ * @param degrees - Wind direction in degrees
+ * @returns Wind direction as compass string
+ */
+function getWindDirection(degrees?: number): typeof validDirs[number] {
   if (degrees === undefined) return 'N';
   const val = Math.floor((degrees / 45) + 0.5);
-  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const directions = validDirs;
   return directions[(val % 8)];
 }
 
-export function usePieChartData(data: Array<{ wind?: number; windDir?: number }>) {
+/**
+ * Hook to memoize pie chart data for wind direction and speed.
+ * @param data - Array of wind data objects
+ * @returns Pie chart data, average wind, max wind, and helpers
+ */
+export function usePieChartData(
+  data: Array<{ wind?: number; windDir?: number }>
+): {
+  pieData: PieChartDatum[];
+  avgWind: number;
+  maxWind: number;
+  validDirs: typeof validDirs;
+  colorMap: typeof colorMap;
+  getWindDirection: typeof getWindDirection;
+} {
   const { pieData, avgWind, maxWind } = useMemo(() => {
     const dirMap = data.reduce((acc: Record<string, { total: number; count: number }>, item) => {
       const dir = getWindDirection(item.windDir);
@@ -29,16 +49,16 @@ export function usePieChartData(data: Array<{ wind?: number; windDir?: number }>
       return acc;
     }, {});
 
-    const pieData = Object.entries(dirMap).map(([name, value]) => ({
-      name,
+    const pieData: PieChartDatum[] = Object.entries(dirMap).map(([name, value]) => ({
+      name: name as typeof validDirs[number],
       value: value.count ? value.total / value.count : 0,
       color: validDirs.includes(name as typeof validDirs[number])
-        ? colorMap[name as keyof typeof colorMap]
+        ? colorMap[name as typeof validDirs[number]]
         : '#cccccc'
     }));
 
     const avgWind = data.length ? data.reduce((sum: number, d: { wind?: number }) => sum + (d.wind || 0), 0) / data.length : 0;
-    const maxWind = Math.max(...pieData.map((d: { value: number }) => d.value), 10);
+    const maxWind = Math.max(...pieData.map((d: PieChartDatum) => d.value), 10);
 
     return { pieData, avgWind, maxWind };
   }, [data]);

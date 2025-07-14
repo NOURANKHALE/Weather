@@ -3,7 +3,8 @@
     "title": "Weather",
     "language": "Language",
     "Map" :"Map",
-    "Forecast":"Forecast"
+    "Forecast":"Forecast",
+    "Home" : "Home"
   },
   "Sidebar": {
     "Home": "Home",

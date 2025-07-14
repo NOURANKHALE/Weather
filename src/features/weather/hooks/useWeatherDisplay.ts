@@ -1,16 +1,19 @@
 import { useEffect, useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
 import type { ForecastItem, ForecastData } from '@/features/forecast/types/ForecastDataInterface';
-import {  useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 interface WeatherData {
   timezone: number;
 }
 
-
-// Transforms raw forecast data into simplified hourly forecast items
+/**
+ * Transforms raw forecast data into simplified hourly forecast items.
+ * @param forecastData - Array of forecast items (readonly)
+ * @returns Array of transformed forecast data
+ */
 export function useTransformedForecastData(
-  forecastData?: ForecastItem[]
+  forecastData?: ReadonlyArray<ForecastItem>
 ): ForecastData[] {
   return useMemo(() => {
     if (!forecastData) return [];
@@ -20,18 +23,23 @@ export function useTransformedForecastData(
       temp: item.main.temp,
       humidity: item.main.humidity,
       wind: item.wind.speed,
-      windDir: item.wind.deg ?? 0, // <-- fix here
+      windDir: item.wind.deg ?? 0,
       condition: item.weather?.[0]?.description ?? '',
     }));
   }, [forecastData]);
 }
 
-// Formats weather time using timezone from weatherData
+/**
+ * Formats weather time using timezone from weatherData.
+ * @param weatherData - Weather data object with timezone
+ * @param locale - Locale string
+ * @returns Formatted time string
+ */
 export function useFormattedWeatherTime(
   weatherData: WeatherData | null,
   locale: string,
 ): string {
-  const [formattedTime, setFormattedTime] = useState('');
+  const [formattedTime, setFormattedTime] = useState<string>('');
   const t = useTranslations('Weather');
   useEffect(() => {
     if (!weatherData?.timezone) return;

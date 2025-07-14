@@ -135,41 +135,7 @@ export default function WeatherDisplay({ section }: { section?: 'weather' | 'hou
         </motion.div>
       )}
 
-      {/* No data state */}
-      {!weatherData && !loading && !error && (
-        <motion.div
-          className="text-center py-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <div className="max-w-md mx-auto space-y-4">
-            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-2xl flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-blue-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                {t('startExploring')}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                {t('searchOrAllowLocation')}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      )}
+      
     </motion.div>
   );
 }

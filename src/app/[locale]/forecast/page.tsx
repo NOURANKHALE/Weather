@@ -7,8 +7,7 @@ import ErrorPage from '@/components/ErrorPage';
 export default function ForecastPage() {
   const locale = useLocale();
   const direction = locale === "ar" ? "rtl" : "ltr";
-  
-  const {weatherData,loading,dailyForecast,error} = useForecast();
+  const { weatherData, loading, dailyForecast, error } = useForecast();
 
   if (loading) {
     return <ForecastLoading />;
