@@ -1,6 +1,6 @@
 import { WeatherData, WeatherApiResponse } from '@/features/weather/types';
 import { WEATHER_ENDPOINTS, ERROR_MESSAGES } from '@/constants/Constants';
-import { apiRequest, handleAPIError, apiCache } from '@/lib/utils/api';
+import { apiRequest, handleAPIError, apiCache } from '@/lib/utils/Api';
 import { ForecastItem } from '@/features/forecast/types/ForecastDataInterface';
 import { buildUrl, getCacheKey } from '@/features/weather/utils/WeatherApiHelpers';
 
