@@ -71,7 +71,6 @@ src/
 │   │   └── ...
 │   ├── globals.css         # Global styles, theming, accessibility
 │   ├── layout.tsx          # Root layout
-│   └── providers.tsx       # Redux provider
 ├── components/             # Reusable UI components
 │   ├── ui/                 # shadcn/ui components (Button, Card, Sidebar, etc.)
 │   ├── AppSidebar.tsx      # Sidebar navigation
@@ -79,16 +78,20 @@ src/
 │   ├── ModeToggle.tsx      # Theme switcher
 │   └── ...                 # Custom components
 ├── features/               # Feature-based modules
-│   ├── weather/            # Weather functionality (slices, services, components)
+│   ├── weather/            # Weather functionality (slices, services,components,utils)
 │   ├── search/             # Search functionality (slices, hooks, components)
 │   ├── map/                # Map functionality (slices, hooks, components)
 │   └── forecast/           # Forecast functionality (components, hooks)
 ├── hooks/                  # Custom React hooks
 ├── i18n/                   # Internationalization config and helpers
-├── lib/                    # Utilities and configurations
+├── lib/                    # Providers, utilities, and configurations
+│   ├── Providers.tsx       # Redux provider and other context providers
 │   ├── utils/              # Utility functions (api, storage, text)
-│   └── constants.ts        # Application constants
-├── Store.tsx               # Redux store configuration (with redux-persist)
+│   └── Utils.ts            # General utilities
+├── constants/              # Application constants
+│   └── Constants.ts        # App-wide constants
+├── store/                  # Redux store configuration (with redux-persist)
+│   └── Store.tsx           # Store setup
 └── messages/               # Translation files (en.json, ar.json)
 ```
 
@@ -132,7 +135,7 @@ NEXT_PUBLIC_DEFAULT_LOCALE=en
 
 ### API Configuration
 
-The app uses OpenWeatherMap API for weather data. Configure the API in `src/lib/constants.ts`:
+The app uses OpenWeatherMap API for weather data. Configure the API in `src/constants/Constants.ts`:
 
 ```typescript
 export const API_CONFIG = {
@@ -163,7 +166,7 @@ The app supports multiple languages:
 
 1. Add locale to `src/i18n/routing.ts`
 2. Create translation files in `messages/`
-3. Update `src/lib/constants.ts`
+3. Update `src/constants/Constants.ts`
 
 ## 🎨 Theming & Accessibility
 
@@ -248,8 +251,3 @@ If you have any questions or need help:
 
 - Create an issue on GitHub
 - Check the documentation
-- Review the code examples
-
----
-
-Made with ❤️ by [Nouran]
