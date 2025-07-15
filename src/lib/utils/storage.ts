@@ -1,4 +1,4 @@
-import { STORAGE_KEYS, UI_CONFIG } from '@/lib/constants';
+import { STORAGE_KEYS, UI_CONFIG } from '@/constants/Constants';
 
 export class StorageManager {
   private static instance: StorageManager;

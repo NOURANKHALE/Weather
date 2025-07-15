@@ -1,4 +1,4 @@
-import { getWeatherIcon } from '@/features/weather/constants/weatherIcons';
+import { getWeatherIcon } from '@/features/weather/constants/WeatherIcons';
 import { ForecastItem, DailyForecastCard } from '@/features/forecast/types/ForecastDataInterface';
 
 /**
@@ -7,6 +7,8 @@ import { ForecastItem, DailyForecastCard } from '@/features/forecast/types/Forec
  * @param locale - Current locale
  * @returns Array of DailyForecastCard objects
  */
+
+
 export function useDailyForecastCards(
   dailyForecast: Readonly<Record<string, ForecastItem[]>>,
   locale: string

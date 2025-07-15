@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MapState } from '@/features/map/types/MapSliceInterface';
-import { fetchCityWeather, fetchUserLocationWeather } from './mapThunks';
+import { fetchCityWeather, fetchUserLocationWeather } from './MapThunks';
 export type MapTab = 'analytics' | 'map' | 'overview';
 
 const initialState: MapState = {

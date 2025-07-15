@@ -1,23 +1,19 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
-import {
-  setCity,
-  clearSearch,
-  setError,
-  searchByCity,
-  searchByCoords
-} from '@/features/search/store/SearchSlice';
+import {setCity,clearSearch,setError,searchByCity,searchByCoords} from '@/features/search/store/SearchSlice';
 import { useLocale } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
 import { debounce } from '@/lib/utils/api';
-import { storageHelpers } from '@/lib/utils/storage';
-import { UI_CONFIG } from '@/lib/constants';
+import { storageHelpers } from '@/lib/utils/Storage';
+import { UI_CONFIG } from '@/constants/Constants';
 import { UseGlobalSearchReturn } from '@/features/search/types/UseGlobalSearchReturnInterface';
-import { setUserWeatherAndForecast } from '@/features/map/store/mapSlice';
+import { setUserWeatherAndForecast } from '@/features/map/store/MapSlice';
 
 /**
- * Hook to centralize search logic, debounced search, geolocation, and search history.
- * @returns All search state, actions, and helpers.
+ * Custom hook to centralize search logic, including debounced search, geolocation, search history, and state management.
+ * @returns All search state, actions, and helpers for global search functionality
  */
+
+
 export const useGlobalSearch = (): UseGlobalSearchReturn => {
   const dispatch = useAppDispatch();
   const locale = useLocale();

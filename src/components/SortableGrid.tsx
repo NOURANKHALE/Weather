@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { DndContext,closestCenter,PointerSensor,useSensor,useSensors,DragOverlay,} from '@dnd-kit/core';
 import {arrayMove,SortableContext,rectSortingStrategy,useSortable} from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { storage } from '@/lib/utils/storage';
+import { storage } from '@/lib/utils/Storage';
 
 interface SortableGridProps<T> {
   items: T[];

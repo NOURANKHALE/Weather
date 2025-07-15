@@ -1,6 +1,6 @@
 "use client";
 import { PanelLeftClose, PanelRightClose } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/Utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "./ui/sidebar";
 

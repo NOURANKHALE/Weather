@@ -1,36 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
-import type { ForecastItem, ForecastData } from '@/features/forecast/types/ForecastDataInterface';
 import { useTranslations } from 'next-intl';
-
-interface WeatherData {
-  timezone: number;
-}
+import { WeatherData } from '@/features/weather/types/WeatherDataInterfaces';
 
 /**
- * Transforms raw forecast data into simplified hourly forecast items.
- * @param forecastData - Array of forecast items (readonly)
- * @returns Array of transformed forecast data
- */
-export function useTransformedForecastData(
-  forecastData?: ReadonlyArray<ForecastItem>
-): ForecastData[] {
-  return useMemo(() => {
-    if (!forecastData) return [];
-
-    return forecastData.slice(0, 8).map((item) => ({
-      time: DateTime.fromSeconds(new Date(item.dt_txt).getTime() / 1000).toFormat('HH:mm'),
-      temp: item.main.temp,
-      humidity: item.main.humidity,
-      wind: item.wind.speed,
-      windDir: item.wind.deg ?? 0,
-      condition: item.weather?.[0]?.description ?? '',
-    }));
-  }, [forecastData]);
-}
-
-/**
- * Formats weather time using timezone from weatherData.
+ * Custom hook to format weather time using timezone from weatherData and locale.
  * @param weatherData - Weather data object with timezone
  * @param locale - Locale string
  * @returns Formatted time string
@@ -60,4 +34,4 @@ export function useFormattedWeatherTime(
   }, [weatherData?.timezone, locale, t]);
 
   return formattedTime;
-}
+} 

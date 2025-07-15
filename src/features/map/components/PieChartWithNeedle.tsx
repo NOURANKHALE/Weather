@@ -2,12 +2,13 @@
 import { useEffect, useState, useRef } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { usePieChartData } from '@/features/map/hooks/usePieChartData';
+import { useTranslations } from 'next-intl';
+import { PieChartDatum } from '@/features/map/types/PieChartDatumInterface';
 
 const RADIAN = Math.PI / 180;
 
 interface PieChartWithNeedleProps {
-  data: Array<{ wind?: number; windDir?: number }>;
-  t: (key: string) => string;
+  data: PieChartDatum[];
   direction: 'ltr' | 'rtl';
   locale: string;
 }
@@ -17,11 +18,11 @@ const NEEDLE_BASE_RADIUS_RATIO = 0.02;
 const CHART_HEIGHT_RATIO = 0.8;
 const MAX_CHART_WIDTH = 400;
 
-export default function PieChartWithNeedle({ data, t }: PieChartWithNeedleProps) {
+export default function PieChartWithNeedle({ data }: PieChartWithNeedleProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 300, height: 250 });
-
   const { pieData, avgWind, maxWind, validDirs, colorMap } = usePieChartData(data);
+  const t = useTranslations('Weather');
 
   // Use ResizeObserver for more robust resizing
   useEffect(() => {
@@ -68,7 +69,7 @@ export default function PieChartWithNeedle({ data, t }: PieChartWithNeedleProps)
         <path
           d={`M${baseX1} ${baseY1} L${baseX2} ${baseY2} L${tipX} ${tipY} Z`}
           className="fill-primary stroke-primary-700"
-          strokeWidth={1.5}
+          strokeWidth={5}
         />
       </g>
     );

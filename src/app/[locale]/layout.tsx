@@ -1,12 +1,12 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import '../globals.css';
-import { getTextDirection } from '@/lib/utils/text';
+import { getTextDirection } from '@/lib/utils/Text';
 import { getMessages } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/Appsidebar"
-import { ReduxProvider } from '@/lib/providers'
+import { AppSidebar } from "@/components/AppSidebar"
+import { ReduxProvider } from '@/lib/Providers'
 import Header from './shared/Header';
 
 export default async function LocaleLayout({

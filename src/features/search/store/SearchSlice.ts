@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { WeatherApiService } from '@/features/weather/services/weatherApi';
+import { WeatherApiService } from '@/features/weather/services/WeatherApiService';
 import { SearchState } from '@/features/search/types/SearchStateInterface';
 
 const initialState: SearchState = {
@@ -9,7 +9,6 @@ const initialState: SearchState = {
   loading: false,
   error: null,
   isGeolocation: false,
-  lastSearchedLocation: null,
 };
 
 export const searchByCity = createAsyncThunk(
@@ -79,13 +78,9 @@ const searchSlice = createSlice({
       state.forecastData = null;
       state.error = null;
       state.isGeolocation = false;
-      state.lastSearchedLocation = null;
     },
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
-    },
-    clearError: (state) => {
-      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -99,7 +94,6 @@ const searchSlice = createSlice({
         state.loading = false;
         state.weatherData = action.payload.weather;
         state.forecastData = action.payload.forecast;
-        state.lastSearchedLocation = action.payload.location;
         state.error = null;
         state.isGeolocation = false;
       })
@@ -117,7 +111,6 @@ const searchSlice = createSlice({
         state.loading = false;
         state.weatherData = action.payload.weather;
         state.forecastData = action.payload.forecast;
-        state.lastSearchedLocation = action.payload.location;
         state.error = null;
         state.isGeolocation = true;
       })
@@ -129,5 +122,5 @@ const searchSlice = createSlice({
   },
 });
 
-export const { setCity, clearSearch, setError, clearError } = searchSlice.actions;
+export const { setCity, clearSearch, setError } = searchSlice.actions;
 export default searchSlice.reducer;

@@ -6,6 +6,7 @@ import { useGlobalSearch } from '@/features/search/hooks';
  * Hook to provide forecast and weather data, including display-ready and grouped daily forecast.
  * @returns Forecast and weather data, loading/error state, and helpers.
  */
+
 export const useForecast = () => {
   const { 
     weatherData, 

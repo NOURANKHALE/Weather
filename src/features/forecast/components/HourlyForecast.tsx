@@ -1,10 +1,9 @@
 'use client';
-
 import React from "react";
 import { motion } from 'framer-motion';
 import { FiDroplet, FiWind } from "react-icons/fi";
 import { HourlyForecastProps } from "@/features/forecast/types/HourlyForecastPropsInterface";
-import { getWeatherIcon } from '@/features/weather/constants/weatherIcons';
+import { getWeatherIcon } from '@/features/weather/constants/WeatherIcons';
 import { useTranslations } from 'next-intl';
 
 export default function HourlyForecast({ forecastData, forecast }: HourlyForecastProps) {

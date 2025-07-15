@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { WeatherApiService } from '@/features/weather/services/weatherApi';
+import { WeatherApiService } from '@/features/weather/services/WeatherApiService';
 
 export type MapTab = 'analytics' | 'map';
 export type Locale = 'en' | 'ar'; 

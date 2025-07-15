@@ -31,9 +31,7 @@ export default function HomePage() {
       className="relative flex flex-col items-center  overflow-x-hidden "
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <FiSun className="absolute top-10 left-10 text-amber-300 opacity-30 animate-spin-slow w-12 h-12 md:w-20 md:h-20" />
-      </div>
+      
 
       <main className="Home_Page relative z-10 w-full flex flex-col items-center pt-4 pb-16 md:pt-12 md:pb-24 px-4 sm:px-6">
         <section className="w-full max-w-7xl mx-auto">
@@ -76,11 +74,7 @@ export default function HomePage() {
         className={`fixed ${isMobile ? 'bottom-6 inset-x-0 mx-auto w-max' : locale === 'ar' ? 'top-22 left-4' : 'top-22 right-4'} z-30`}
       >
         <div className="flex items-center gap-3 bg-white/60 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl px-4 py-2 md:px-5 md:py-3 shadow-lg md:shadow-2xl border border-white/20 dark:border-gray-700/40 hover:scale-105 transition-transform cursor-pointer">
-          <span className="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-gradient-to-tr from-yellow-300 via-yellow-200 to-yellow-400 dark:from-yellow-500 dark:to-yellow-300 shadow-md animate-bounce-slow">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5 text-yellow-700 dark:text-yellow-900">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2m0 14v2m7-7h2M3 12H5m12.364-7.364l1.414 1.414M4.222 19.778l1.414-1.414m12.728 0l-1.414-1.414M4.222 4.222l1.414 1.414M12 7a5 5 0 00-5 5c0 2.5 2 4.5 5 4.5s5-2 5-4.5a5 5 0 00-5-5z" />
-            </svg>
-          </span>
+          
           <span className="text-xs md:text-sm font-medium text-gray-800 dark:text-gray-100">
             {t('tip')}
           </span>

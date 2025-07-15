@@ -1,6 +1,6 @@
 // features/weather/weatherSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { WeatherApiService } from '@/features/weather/services/weatherApi';
+import { WeatherApiService } from '@/features/weather/services/WeatherApiService';
 import { WeatherState, WeatherApiResponse } from '@/features/weather/types';
 
 export const fetchWeatherByCoords = createAsyncThunk(

@@ -1,2 +1,2 @@
-export * from './mapSlice';
-export { fetchCityWeather, fetchUserLocationWeather } from './mapThunks';
+export * from './MapSlice';
+export { fetchCityWeather, fetchUserLocationWeather } from './MapThunks';

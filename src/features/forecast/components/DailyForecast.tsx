@@ -13,7 +13,7 @@ export default function DailyForecast({ dailyForecast }: DailyForecastProps) {
   const t = useTranslations("WeatherCard");
   const locale = useLocale();
 
-  const forecastCards = useDailyForecastCards(dailyForecast, locale).filter(Boolean) as DailyForecastCardProps[];
+  const forecastCards = useDailyForecastCards(dailyForecast, locale) as DailyForecastCardProps[];
 
   return (
     <section className="Daily_Forecast relative py-8 px-2 rounded-3xl shadow-inner">

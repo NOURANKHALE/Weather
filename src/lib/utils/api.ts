@@ -1,4 +1,4 @@
-import { API_CONFIG, ERROR_MESSAGES } from '@/lib/constants';
+import { API_CONFIG, ERROR_MESSAGES } from '@/constants/Constants';
 
 // Custom error class for API errors
 export class APIError extends Error {

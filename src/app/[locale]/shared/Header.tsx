@@ -1,6 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { ModeToggle } from '@/components/Modetoggle';
+import { ModeToggle } from '@/components/ModeToggle';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Globe, ChevronDown} from 'lucide-react';
@@ -36,8 +36,6 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <MobileSidebar
               locale={typeof locale === 'string' ? locale : 'en'}
-              t={t}
-              router={router}
               setMobileMenuOpen={setMobileMenuOpen}
               mobileMenuOpen={mobileMenuOpen}
               changeLocale={changeLocale}

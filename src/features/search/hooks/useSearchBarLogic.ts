@@ -1,7 +1,14 @@
 "use client";
 import { useState, useRef, useEffect, useCallback} from 'react';
 import { UseSearchBarLogic } from '@/features/search/types/UseSearchBarLogicInterface';
-import { useGlobalSearch } from './useGlobalSearch';
+import { useGlobalSearch } from '@/features/search/hooks/useGlobalSearch';
+
+/**
+ * Custom hook to manage the logic and state for the search bar UI, including search history, input handling, and keyboard navigation.
+ * @param showHistory - Whether to display search history dropdown (default: true)
+ * @returns Logic, state, and handlers for the search bar UI
+ */
+
 
 export const useSearchBarLogic = (showHistory = true): UseSearchBarLogic => {
   const {

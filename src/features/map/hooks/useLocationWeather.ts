@@ -8,6 +8,7 @@ import { LocationWeatherProps } from "@/features/map/types/LocationWeatherInterf
  * @param searchCity - The city being searched for (if any)
  * @returns Geolocation error, setter, alert ref, and user location
  */
+
 export function useLocationWeather({ searchCity }: LocationWeatherProps): {
   geoError: string | null;
   setGeoError: Dispatch<SetStateAction<string | null>>;

@@ -1,9 +1,8 @@
 'use client';
-
 import { FiSearch, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchInputProps } from '@/features/search/types/SearchComponentPropsInterface';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/Utils';
 import { useTranslations } from 'next-intl';
 
 export default function SearchInput({
@@ -19,8 +18,8 @@ export default function SearchInput({
   variant,
   showHistoryDropdown,
   selectedHistoryIndex,
-  searchHistory = [], // optional: array of past searches
-  onHistoryItemClick, // optional: function to handle click
+  searchHistory = [], 
+  onHistoryItemClick, 
 }: SearchInputProps & {
   searchHistory?: string[];
   onHistoryItemClick?: (item: string) => void;
@@ -31,9 +30,9 @@ export default function SearchInput({
     <div className="Search_Input relative w-full">
       <FiSearch 
         className={cn(
-          "text-gray-400 dark:text-gray-500 absolute",
-          isRTL ? "right-3" : "left-3",
-          variant === 'default' ? "w-5 h-5" : "w-4 h-4"
+          "text-gray-400 dark:text-gray-500 absolute top-3",
+          isRTL ? "right-3" : "left-4",
+          variant === 'default' ? "w-4 h-4" : "w-3 h-3"
         )} 
       />
 

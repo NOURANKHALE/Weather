@@ -1,11 +1,10 @@
 'use client';
-
 import { Button } from '@/components/ui/button';
 import { useLocale } from 'next-intl';
 import { FiMapPin } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchBarLogic } from '@/features/search/hooks';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/Utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SearchBarProps } from '@/features/search/types/SearchComponentPropsInterface';
 import SearchInput from './SearchInput';

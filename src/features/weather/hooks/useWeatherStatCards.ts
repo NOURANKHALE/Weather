@@ -1,25 +1,16 @@
 import { FiThermometer, FiDroplet, FiWind, FiSun } from 'react-icons/fi';
 import { WeatherStatCard } from '@/features/weather/types/WeatherStatCardPropsInterface';
-
-interface WeatherData {
-  main: {
-    temp_max: number;
-    temp_min: number;
-    humidity: number;
-  };
-  wind: {
-    speed: number;
-  };
-}
+import { WeatherData } from '@/features/weather/types/WeatherDataInterfaces';
 
 type TranslationFunction = (key: string) => string;
 
 /**
- * Returns an array of weather stat card data for display.
+ * Custom hook to return an array of weather stat card data for display, including temperature, humidity, wind, and UV index.
  * @param weatherData - Weather data object
  * @param t - Translation function
  * @returns Array of WeatherStatCard objects
  */
+
 export default function useWeatherStatCards(
   weatherData: WeatherData,
   t: TranslationFunction

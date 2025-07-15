@@ -10,10 +10,8 @@ import { useGlobalSearch } from '@/features/search/hooks';
 import { WeatherData } from '@/features/weather/types';
 import WeatherCardSkelton from '@/features/weather/components/WeatherCardSkelton';
 import ForecastSkeleton from '@/features/forecast/components/ForecastSkelton';
-import {
-  useTransformedForecastData,
-  useFormattedWeatherTime
-} from '@/features/weather/hooks/useWeatherDisplay';
+import {useFormattedWeatherTime} from '@/features/weather/hooks/useFormattedWeatherTime';
+import {useTransformedForecastData,} from '@/features/weather/hooks/useTransformedForecastData';
 
 export default function WeatherDisplay({ section }: { section?: 'weather' | 'hourly' }) {
   const t = useTranslations('Weather');

@@ -193,7 +193,8 @@ export default function MapTabsPage({
                             </linearGradient>
                           </defs>
                           <Bar 
-                            dataKey="humidity" 
+                            dataKey="humidity"
+                            name={t('Humidity')}
                             fill="url(#humidityGradient)"
                             radius={[8, 8, 0, 0]}
                           />
@@ -215,6 +216,31 @@ export default function MapTabsPage({
               );
             }
             if (id === "wind") {
+              const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+              const colorMap: Record<string, string> = {
+                N: '#4f46e5',
+                NE: '#7c3aed',
+                E: '#a78bfa',
+                SE: '#c4b5fd',
+                S: '#a5b4fc',
+                SW: '#818cf8',
+                W: '#6366f1',
+                NW: '#4338ca'
+              };
+              const dirMap: Record<string, { total: number; count: number }> = {};
+              analyticsForecast.forEach(item => {
+                const deg = item.wind?.deg ?? 0;
+                const val = Math.floor((deg / 45) + 0.5);
+                const dir = dirs[(val % 8)];
+                if (!dirMap[dir]) dirMap[dir] = { total: 0, count: 0 };
+                dirMap[dir].total += item.wind?.speed ?? 0;
+                dirMap[dir].count += 1;
+              });
+              const pieData = dirs.map(dir => ({
+                name: dir,
+                value: dirMap[dir]?.count ? dirMap[dir].total / dirMap[dir].count : 0,
+                color: colorMap[dir]
+              }));
               return (
                 <Card className="bg-white/80 dark:bg-gray-800/70 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                   <CardHeader>
@@ -225,11 +251,7 @@ export default function MapTabsPage({
                   <CardContent>
                     <div className="h-64 w-full">
                       <PieChartWithNeedle
-                        data={analyticsForecast.map(item => ({
-                          wind: item.wind?.speed ?? 0,
-                          windDir: item.wind?.deg ?? 0
-                        }))}
-                        t={t}
+                        data={pieData}
                         direction={direction}
                         locale={locale}
                       />
