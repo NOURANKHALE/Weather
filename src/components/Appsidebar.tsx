@@ -6,7 +6,7 @@ import { useParams, usePathname } from 'next/navigation'
 import { CustomSidebarTrigger } from './CustomSidebarTrigger'
 import { motion } from 'framer-motion'
 import {Sidebar,SidebarContent,SidebarGroup,SidebarGroupContent,SidebarMenu,SidebarMenuButton,SidebarMenuItem,} from '@/components/ui/sidebar'
-import { cn } from '@/lib/Utils'
+import { cn } from '@/lib/utils'
 
 export function AppSidebar() {
   const t = useTranslations('Sidebar')

@@ -2,7 +2,7 @@
 import { FiSearch, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchInputProps } from '@/features/search/types/SearchComponentPropsInterface';
-import { cn } from '@/lib/Utils';
+import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
 export default function SearchInput({

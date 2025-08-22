@@ -3,7 +3,7 @@ import {setCity,clearSearch,setError,searchByCity,searchByCoords} from '@/featur
 import { useLocale } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
 import { debounce } from '@/lib/utils/Api';
-import { storageHelpers } from '@/lib/utils/Storage';
+import { storageHelpers } from '@/lib/utils/storage';
 import { UI_CONFIG } from '@/constants/Constants';
 import { UseGlobalSearchReturn } from '@/features/search/types/UseGlobalSearchReturnInterface';
 import { setUserWeatherAndForecast } from '@/features/map/store/mapSlice';

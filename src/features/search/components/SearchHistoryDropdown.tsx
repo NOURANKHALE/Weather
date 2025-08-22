@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { FiClock } from 'react-icons/fi';
 import { SearchHistoryDropdownProps } from '@/features/search/types/SearchComponentPropsInterface';
-import { cn } from '@/lib/Utils';
+import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
 export default function SearchHistoryDropdown({
