@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
 import { WeatherCardProps } from '@/features/weather/types';
-import { WEATHER_ICON_MAP } from '@/features/weather/constants/WeatherIcons';
+import { WEATHER_ICON_MAP } from '@/features/weather/constants/weathericon';
 import { useWeatherConditionLabel } from '@/features/weather/constants/Weather';
 
 export default function WeatherCard({ weather, formattedTime, className = '' }: WeatherCardProps) {

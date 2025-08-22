@@ -1,4 +1,4 @@
-import { getWeatherIcon } from '@/features/weather/constants/WeatherIcons';
+import { getWeatherIcon } from '@/features/weather/constants/weathericon';
 import { ForecastItem, DailyForecastCard } from '@/features/forecast/types/ForecastDataInterface';
 
 /**

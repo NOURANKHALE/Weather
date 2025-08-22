@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { FiDroplet, FiWind } from "react-icons/fi";
 import { HourlyForecastProps } from "@/features/forecast/types/HourlyForecastPropsInterface";
-import { getWeatherIcon } from '@/features/weather/constants/WeatherIcons';
+import { getWeatherIcon } from '@/features/weather/constants/weathericon';
 import { useTranslations } from 'next-intl';
 
 export default function HourlyForecast({ forecastData, forecast }: HourlyForecastProps) {

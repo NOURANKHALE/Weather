@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import {setCity,clearSearch,setError,searchByCity,searchByCoords} from '@/features/search/store/SearchSlice';
 import { useLocale } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
-import { debounce } from '@/lib/utils/Api';
+import { debounce } from '@/lib/utils/api';
 import { storageHelpers } from '@/lib/utils/storage';
 import { UI_CONFIG } from '@/constants/Constants';
 import { UseGlobalSearchReturn } from '@/features/search/types/UseGlobalSearchReturnInterface';
