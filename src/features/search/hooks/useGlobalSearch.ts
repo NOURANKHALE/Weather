@@ -6,7 +6,7 @@ import { debounce } from '@/lib/utils/Api';
 import { storageHelpers } from '@/lib/utils/Storage';
 import { UI_CONFIG } from '@/constants/Constants';
 import { UseGlobalSearchReturn } from '@/features/search/types/UseGlobalSearchReturnInterface';
-import { setUserWeatherAndForecast } from '@/features/map/store/MapSlice';
+import { setUserWeatherAndForecast } from '@/features/map/store/mapSlice';
 
 /**
  * Custom hook to centralize search logic, including debounced search, geolocation, search history, and state management.

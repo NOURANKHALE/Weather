@@ -3,11 +3,11 @@ import { useEffect ,useMemo} from 'react';
 import dynamic from "next/dynamic";
 import { useLocale } from 'next-intl';
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
-import { setActiveTab } from '@/features/map/store/MapSlice';
+import { setActiveTab } from '@/features/map/store/mapSlice';
 import { useLocationWeather } from '@/features/map/hooks/useLocationWeather';
 import MapTabsPage from '@/features/map/components/MapTabsPage';
 import ErrorPage from '@/components/ErrorPage';
-import { fetchUserLocationWeather } from '@/features/map/store/MapThunks';
+import { fetchUserLocationWeather } from '@/features/map/store/mapThunks';
 
 const WeatherMapClient = dynamic(() => import('../../../features/map/components/WeatherMap'), { ssr: false });
 const LOCATION_PERMISSION_STORAGE_KEY = 'locationPermissionRequested';

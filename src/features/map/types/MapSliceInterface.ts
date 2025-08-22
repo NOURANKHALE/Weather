@@ -1,6 +1,6 @@
 import { ForecastItem } from '@/features/forecast/types/ForecastDataInterface';
 import { WeatherData } from '@/features/weather/types/WeatherDataInterfaces';
-import { MapTab } from '@/features/map/store/MapSlice';
+import { MapTab } from '@/features/map/store/mapSlice';
 import { Coord } from './WeatherMapInterface';
 
 export interface MapState {

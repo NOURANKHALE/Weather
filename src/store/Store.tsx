@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; 
 import searchReducer from '../features/search/store/SearchSlice';
 import weatherReducer from '@/features/weather/store/WeatherSlice';
-import mapReducer from '../features/map/store/MapSlice';
+import mapReducer from '../features/map/store/mapSlice';
 
 const rootReducer = combineReducers({
   search: searchReducer,
