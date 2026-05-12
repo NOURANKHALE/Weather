@@ -1,6 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { ModeToggle } from '@/components/modetoggle';
+import { ModeToggle } from '@/components/Modetoggle';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Globe, ChevronDown} from 'lucide-react';
